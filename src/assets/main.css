@@ -16,5 +16,13 @@ body,
   --blue: #3d82c2;
   --orange: #e77224;
   --grey: #979797;
-  --light-grey: #e4e3e3;
+  --light-grey: #f5f3f3;
+}
+
+input,
+select {
+  height: 35px;
+  border: 2px solid var(--grey);
+  outline: none;
+  border-radius: 0.2rem;
 }
