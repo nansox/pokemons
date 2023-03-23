@@ -4,6 +4,7 @@ body,
   height: 100%;
   width: 100%;
   margin: 0;
+  font-family: sans-serif;
 }
 
 :root {
@@ -13,10 +14,12 @@ body,
   --dark-green: #8aa579;
   --purple: #a231ec;
   --light-purple: #b683d8;
+  --light-blue: #3a8bd6;
   --blue: #3d82c2;
   --orange: #e77224;
   --grey: #979797;
   --light-grey: #f5f3f3;
+  --grey-300: #cecdcd;
 }
 
 input,
