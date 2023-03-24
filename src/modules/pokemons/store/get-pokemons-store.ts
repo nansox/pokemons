@@ -5,7 +5,8 @@ import { getPokemonDetail, getPokemonsList } from '@/modules/pokemons/api/pokemo
 
 const state = {
   status: CallStatus.INITIAL,
-  list: null as Pokemon[] | null
+  list: null as Pokemon[] | null,
+  filters: { name: '', category: '' }
 }
 
 const GetPokemons = {
@@ -16,13 +17,31 @@ const GetPokemons = {
     },
     changeStatus(state, newStatus: CallStatus) {
       state.status = newStatus
+    },
+    setFilter(state, { filter, newVal }: { filter: 'name' | 'category'; newVal: string }) {
+      state.filters[filter] = newVal
     }
   },
   getters: {
-    statusCall: (state) => state.status,
-    pokemonList: (state) => state.list
+    pokemonStatusCall: (state) => state.status,
+    pokemonList: (state) => state.list,
+    pokemonFilteredList: (state) =>
+      state.list?.filter((pok) => {
+        const nameCondition =
+          state.filters.name === '' || pok.name.toLowerCase() === state.filters.name.toLowerCase()
+        const categoryCondition =
+          state.filters.category === '' ||
+          pok.types.map(({ type }) => type.name).includes(state.filters.category)
+
+        return nameCondition && categoryCondition
+      }),
+    pokemonsNameFilter: (state) => state.filters.name,
+    pokemonsCategoryFilter: (state) => state.filters.category
   },
   actions: {
+    updateFilter(context, payload: { filter: 'name' | 'category'; newVal: string }) {
+      context.commit('setFilter', payload)
+    },
     async fetchPokemons(context) {
       try {
         context.commit('changeStatus', CallStatus.LOADING)

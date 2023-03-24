@@ -9,8 +9,8 @@ import PokemonList from '@/modules/pokemons/components/pokemon-list.vue'
 const store = useStore()
 onBeforeMount(() => store.dispatch('fetchPokemons'))
 
-const pokemons = computed(() => store.getters['pokemonList'])
-const statusCall = computed(() => store.getters['statusCall'])
+const pokemons = computed(() => store.getters['pokemonFilteredList'])
+const statusCall = computed(() => store.getters['pokemonStatusCall'])
 const loading = computed(() => statusCall.value === CallStatus.LOADING)
 const success = computed(() => statusCall.value === CallStatus.DONE)
 </script>

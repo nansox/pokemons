@@ -14,6 +14,7 @@ const props = withDefaults(
 )
 const emit = defineEmits<{
   (event: 'update:value', value: string): void
+  (event: 'search', value: string): void
 }>()
 
 const vModel = computed({ get: () => props.value, set: (nVal) => emit('update:value', nVal) })
@@ -22,9 +23,14 @@ const vModel = computed({ get: () => props.value, set: (nVal) => emit('update:va
 <template>
   <div class="pk-search-input">
     <div class="pk-search-input_button">
-      <button><IconSearch /></button>
+      <button @click="emit('search', vModel)"><IconSearch /></button>
     </div>
-    <input type="search" v-model="vModel" :placeholder="props.placeholder" />
+    <input
+      type="text"
+      v-model="vModel"
+      :placeholder="props.placeholder"
+      @keypress.enter="emit('search', vModel)"
+    />
   </div>
 </template>
 

@@ -24,7 +24,7 @@ const optionsList = computed(() =>
 
 <template>
   <select v-model="vModel">
-    <option disabled value="">{{ props.placeholder }}</option>
+    <option value="">{{ props.placeholder }}</option>
     <option v-for="{ key, text } in optionsList" :key="`pk-select-${key}`">{{ text }}</option>
   </select>
 </template>
