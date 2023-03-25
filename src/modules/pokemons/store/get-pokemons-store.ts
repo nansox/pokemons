@@ -38,6 +38,12 @@ const GetPokemons = {
       })
   },
   actions: {
+    clean(context) {
+      context.commit('changeStatus', CallStatus.INITIAL)
+      context.commit('setList', null)
+      context.commit('setFilter', { filter: 'name', newVal: '' })
+      context.commit('setFilter', { filter: 'category', newVal: '' })
+    },
     updateFilter(context, payload: { filter: 'name' | 'category'; newVal: string }) {
       context.commit('setFilter', payload)
     },

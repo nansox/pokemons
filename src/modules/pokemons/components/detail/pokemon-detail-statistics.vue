@@ -25,9 +25,7 @@ watch(
   { immediate: true }
 )
 
-onBeforeRouteLeave(() => {
-  store.dispatch('GetPokemonStatistics/clean')
-})
+onBeforeRouteLeave(() => store.dispatch('GetPokemonStatistics/clean'))
 </script>
 
 <template>

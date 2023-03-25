@@ -5,6 +5,7 @@ import PokemonListFilters from '@/modules/pokemons/components/list/pokemon-list-
 import { CallStatus } from '@/common/store/types'
 import PkSpinner from '@/common/components/pk-spinner.vue'
 import PokemonList from '@/modules/pokemons/components/list/pokemon-list.vue'
+import { onBeforeRouteLeave } from 'vue-router'
 
 const store = useStore()
 onBeforeMount(() => store.dispatch('GetPokemons/fetchPokemons'))
@@ -13,6 +14,8 @@ const pokemons = computed(() => store.getters['GetPokemons/filteredList'])
 const statusCall = computed(() => store.getters['GetPokemons/statusCall'])
 const loading = computed(() => statusCall.value === CallStatus.LOADING)
 const loaded = computed(() => statusCall.value === CallStatus.DONE)
+
+onBeforeRouteLeave(() => store.dispatch('GetPokemons/clean'))
 </script>
 
 <template>

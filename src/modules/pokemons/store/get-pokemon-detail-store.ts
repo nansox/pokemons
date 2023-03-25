@@ -24,6 +24,10 @@ const GetPokemonDetail = {
     pokemonDetail: (state) => state.detail
   },
   actions: {
+    clean(context) {
+      context.commit('changeStatus', CallStatus.INITIAL)
+      context.commit('setPokemon', null)
+    },
     async fetchPokemonDetail(context, name: string) {
       try {
         context.commit('changeStatus', CallStatus.LOADING)

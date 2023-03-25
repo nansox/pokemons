@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeMount } from 'vue'
 import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
+import { onBeforeRouteLeave, useRoute } from 'vue-router'
 import { CallStatus } from '@/common/store/types'
 import PkSpinner from '@/common/components/pk-spinner.vue'
 import PokemonDetailType from '@/modules/pokemons/components/detail/pokemon-detail-type.vue'
@@ -18,6 +18,8 @@ const pokemon = computed(() => store.getters['GetPokemonDetail/pokemonDetail'] a
 const detailCallStatus = computed(() => store.getters['GetPokemonDetail/statusCall'])
 const loading = computed(() => detailCallStatus.value === CallStatus.LOADING)
 const loaded = computed(() => detailCallStatus.value === CallStatus.DONE)
+
+onBeforeRouteLeave(() => store.dispatch('GetPokemonDetail/clean'))
 </script>
 
 <template>
