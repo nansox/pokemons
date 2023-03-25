@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { Pokemon } from '@/modules/pokemons/api/pokemon-types'
-import PokemonListTypeButton from './pokemon-list-type-button.vue'
+import PokemonListTypeButton from '@/modules/pokemons/components/list/pokemon-type-button.vue'
 
 const props = defineProps<{ pokemon: Pokemon; index: number }>()
 </script>
 
 <template>
-  <section>
+  <RouterLink :to="{ name: 'pokemon-detail', params: { name: props.pokemon.name } }">
     <div class="content">
       <div class="data-container">
         <h3>{{ pokemon.name }}</h3>
@@ -14,7 +14,7 @@ const props = defineProps<{ pokemon: Pokemon; index: number }>()
           <PokemonListTypeButton
             v-for="pokemonType in pokemon.types"
             :key="pokemonType.type.name"
-            :type="pokemonType"
+            :type="pokemonType.type.name"
           ></PokemonListTypeButton>
         </div>
       </div>
@@ -26,17 +26,18 @@ const props = defineProps<{ pokemon: Pokemon; index: number }>()
     <div class="bottom-bar-container">
       <div class="bottom-bar" :style="{ width: `${props.pokemon.base_experience / 3}%` }"></div>
     </div>
-  </section>
+  </RouterLink>
 </template>
 
 <style scoped>
-section {
+a {
   background-color: white;
   width: 20rem;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   border-radius: 0.3rem;
+  text-decoration: none;
 }
 .content {
   flex-grow: 1;

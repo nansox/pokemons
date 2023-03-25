@@ -54,4 +54,31 @@ button[variant='grey'] {
 button[variant='light-grey'] {
   background-color: var(--light-grey);
 }
+button[variant='red'] {
+  background-color: var(--red);
+}
+button[variant='extra-light-blue'] {
+  background-color: var(--extra-light-blue);
+}
+button[variant='pink'] {
+  background-color: var(--pink);
+}
+button[variant='light-pink'] {
+  background-color: var(--light-pink);
+}
+button[variant='yellow'] {
+  background-color: var(--yellow);
+}
+button[variant='light-orange'] {
+  background-color: var(--light-orange);
+}
+button[variant='light-yellow'] {
+  background-color: var(--light-yellow);
+}
+button[variant='light-black'] {
+  background-color: var(--light-black);
+}
+button[variant='dark-blue'] {
+  background-color: var(--dark-blue);
+}
 </style>

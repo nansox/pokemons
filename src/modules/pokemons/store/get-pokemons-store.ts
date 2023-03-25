@@ -23,8 +23,10 @@ const GetPokemons = {
     }
   },
   getters: {
-    pokemonStatusCall: (state) => state.status,
+    pokemonListStatusCall: (state) => state.status,
     pokemonList: (state) => state.list,
+    pokemonsNameFilter: (state) => state.filters.name,
+    pokemonsCategoryFilter: (state) => state.filters.category,
     pokemonFilteredList: (state) =>
       state.list?.filter((pok) => {
         const nameCondition =
@@ -34,9 +36,7 @@ const GetPokemons = {
           pok.types.map(({ type }) => type.name).includes(state.filters.category)
 
         return nameCondition && categoryCondition
-      }),
-    pokemonsNameFilter: (state) => state.filters.name,
-    pokemonsCategoryFilter: (state) => state.filters.category
+      })
   },
   actions: {
     updateFilter(context, payload: { filter: 'name' | 'category'; newVal: string }) {

@@ -26,7 +26,7 @@ export type Pokemon = {
   sprites: PokemonSprites
   species: NamedAPIResource
   stats: PokemonStat[]
-  types: PokemonType[]
+  types: LitPokemonType[]
 }
 
 export type PokemonAbility = {
@@ -35,7 +35,7 @@ export type PokemonAbility = {
   ability: NamedAPIResource
 }
 
-export type PokemonType = {
+export type LitPokemonType = {
   slot: number
   type: NamedAPIResource
 }
@@ -46,7 +46,7 @@ export type PokemonFormType = {
 
 export type PokemonTypePast = {
   generation: NamedAPIResource
-  types: PokemonType[]
+  types: LitPokemonType[]
 }
 
 export type PokemonHeldItem = {
@@ -92,4 +92,36 @@ export type NamedAPIResource = {
 export type PokemonHeldItemVersion = {
   version: NamedAPIResource
   rarity: number
+}
+
+export interface PokemonType {
+  damage_relations: PokemonDamageRelations
+  game_indices: PokemonGameIndex[]
+  generation: NamedAPIResource
+  id: number
+  move_damage_class: NamedAPIResource
+  moves: NamedAPIResource[]
+  name: string
+  names: PokemonName[]
+  past_damage_relations: any[]
+  pokemon: LitPokemonType[]
+}
+
+export interface PokemonDamageRelations {
+  double_damage_from: NamedAPIResource[]
+  double_damage_to: any[]
+  half_damage_from: any[]
+  half_damage_to: NamedAPIResource[]
+  no_damage_from: NamedAPIResource[]
+  no_damage_to: NamedAPIResource[]
+}
+
+export interface PokemonGameIndex {
+  game_index: number
+  generation: NamedAPIResource
+}
+
+export interface PokemonName {
+  language: NamedAPIResource
+  name: string
 }

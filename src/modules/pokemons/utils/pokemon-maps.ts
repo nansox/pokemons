@@ -5,5 +5,14 @@ export const VariantByPokemonType = {
   flying: 'light-purple',
   water: 'blue',
   bug: 'light-green',
-  normal: 'dark-green'
+  normal: 'dark-green',
+  fighting: 'red',
+  ice: 'extra-light-blue',
+  psychic: 'pink',
+  fairy: 'light-pink',
+  electric: 'yellow',
+  ground: 'light-orange',
+  rock: 'light-yellow',
+  steel: 'light-black',
+  dragon: 'dark-blue'
 }
