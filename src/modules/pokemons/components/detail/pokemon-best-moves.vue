@@ -7,7 +7,7 @@ import type { Pokemon } from '@/modules/pokemons/api/pokemon-types'
 const store = useStore()
 const { t } = useI18n()
 
-const pokemon = computed(() => store.getters.pokemonDetail as Pokemon)
+const pokemon = computed(() => store.getters['GetPokemonDetail/pokemonDetail'] as Pokemon)
 </script>
 
 <template>

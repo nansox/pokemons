@@ -12,10 +12,10 @@ const store = useStore()
 const route = useRoute()
 
 onBeforeMount(async () => {
-  await store.dispatch('fetchPokemonDetail', route.params.name)
+  await store.dispatch('GetPokemonDetail/fetchPokemonDetail', route.params.name)
 })
-const pokemon = computed(() => store.getters.pokemonDetail as Pokemon)
-const detailCallStatus = computed(() => store.getters.pokemonDetailStatusCall)
+const pokemon = computed(() => store.getters['GetPokemonDetail/pokemonDetail'] as Pokemon)
+const detailCallStatus = computed(() => store.getters['GetPokemonDetail/statusCall'])
 const loading = computed(() => detailCallStatus.value === CallStatus.LOADING)
 const loaded = computed(() => detailCallStatus.value === CallStatus.DONE)
 </script>

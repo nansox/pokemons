@@ -1,68 +1,43 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { useStore } from 'vuex'
+import { computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { getPokemonType } from '@/modules/pokemons/api/pokemons'
-import type { PokemonType } from '@/modules/pokemons/api/pokemon-types'
+import { onBeforeRouteLeave } from 'vue-router'
 import PokemonListTypeButton from '@/modules/pokemons/components/list/pokemon-type-button.vue'
 import PkSpinner from '@/common/components/pk-spinner.vue'
+import { CallStatus } from '@/common/store/types'
 
 const { t } = useI18n()
+const store = useStore()
 const props = defineProps<{ pokemonType: string }>()
 
-const pokemonType = ref<null | PokemonType>(null)
-const loadingFlag = ref(false)
+const loading = computed(
+  () => store.getters['GetPokemonStatistics/statusCall'] === CallStatus.LOADING
+)
+const loaded = computed(() => store.getters['GetPokemonStatistics/statusCall'] === CallStatus.DONE)
+
+const vulnerabilities = computed(() => store.getters['GetPokemonStatistics/vulnerableStatistics'])
+const resistances = computed(() => store.getters['GetPokemonStatistics/resistanceStatistics'])
 
 watch(
   () => props.pokemonType,
-  async () => {
-    try {
-      loadingFlag.value = true
-      pokemonType.value = await getPokemonType(props.pokemonType)
-    } finally {
-      loadingFlag.value = false
-    }
-  },
+  () => store.dispatch('GetPokemonStatistics/fetchPokemonStatistics', props.pokemonType),
   { immediate: true }
 )
 
-const vulnerableStatistics = computed(() => {
-  if (!pokemonType.value) return []
-  const { double_damage_from, half_damage_from } = pokemonType.value!.damage_relations
-  return [
-    ...double_damage_from.map(({ name }) => ({
-      name,
-      damage: 'double'
-    })),
-    ...half_damage_from.map(({ name }) => ({
-      name,
-      damage: 'half'
-    }))
-  ]
-})
-const resistanceStatistics = computed(() => {
-  if (!pokemonType.value) return []
-  const { double_damage_to, half_damage_to } = pokemonType.value!.damage_relations
-  return [
-    ...double_damage_to.map(({ name }) => ({
-      name,
-      damage: 'double'
-    })),
-    ...half_damage_to.map(({ name }) => ({
-      name,
-      damage: 'half'
-    }))
-  ]
+onBeforeRouteLeave(() => {
+  store.dispatch('GetPokemonStatistics/clean')
 })
 </script>
 
 <template>
   <div class="pokemon-detail-statistics">
-    <PkSpinner v-if="loadingFlag"></PkSpinner>
-    <div v-else class="pokemon-detail-statistics-body">
+    <PkSpinner v-if="loading"></PkSpinner>
+    <div v-else-if="loaded" class="pokemon-detail-statistics-body">
       <div>
         <h5>{{ t('Vulnerable_to') }}...</h5>
         <ul>
-          <li v-for="vulnerability of vulnerableStatistics" :key="vulnerability.name">
+          <li v-for="vulnerability of vulnerabilities" :key="vulnerability.name">
             <PokemonListTypeButton :type="vulnerability.name"></PokemonListTypeButton>
             <p>
               <span>{{ vulnerability.damage }}</span>
@@ -74,7 +49,7 @@ const resistanceStatistics = computed(() => {
       <div>
         <h5>{{ t('Resistant_to') }}...</h5>
         <ul>
-          <li v-for="resistance of resistanceStatistics" :key="resistance.name">
+          <li v-for="resistance of resistances" :key="resistance.name">
             <PokemonListTypeButton :type="resistance.name"></PokemonListTypeButton>
             <p>
               <span>{{ resistance.damage }}</span>
@@ -84,6 +59,7 @@ const resistanceStatistics = computed(() => {
         </ul>
       </div>
     </div>
+    <p v-else>Service Error</p>
   </div>
 </template>
 

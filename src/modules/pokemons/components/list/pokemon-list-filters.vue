@@ -17,11 +17,13 @@ const selectOptions = Object.keys(VariantByPokemonType).reduce((acumm, opt) => {
 const textVModel = ref('')
 
 const categoryVModel = computed({
-  get: () => store.getters.pokemonsCategoryFilter,
-  set: (nVal: string) => store.dispatch('updateFilter', { filter: 'category', newVal: nVal })
+  get: () => store.getters['GetPokemons/categoryFilter'],
+  set: (nVal: string) =>
+    store.dispatch('GetPokemons/updateFilter', { filter: 'category', newVal: nVal })
 })
 
-const doSearch = (text: string) => store.dispatch('updateFilter', { filter: 'name', newVal: text })
+const doSearch = (text: string) =>
+  store.dispatch('GetPokemons/updateFilter', { filter: 'name', newVal: text })
 </script>
 
 <template>

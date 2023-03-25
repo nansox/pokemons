@@ -7,10 +7,10 @@ import PkSpinner from '@/common/components/pk-spinner.vue'
 import PokemonList from '@/modules/pokemons/components/list/pokemon-list.vue'
 
 const store = useStore()
-onBeforeMount(() => store.dispatch('fetchPokemons'))
+onBeforeMount(() => store.dispatch('GetPokemons/fetchPokemons'))
 
-const pokemons = computed(() => store.getters['pokemonFilteredList'])
-const statusCall = computed(() => store.getters['pokemonListStatusCall'])
+const pokemons = computed(() => store.getters['GetPokemons/filteredList'])
+const statusCall = computed(() => store.getters['GetPokemons/statusCall'])
 const loading = computed(() => statusCall.value === CallStatus.LOADING)
 const loaded = computed(() => statusCall.value === CallStatus.DONE)
 </script>

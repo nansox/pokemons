@@ -10,6 +10,7 @@ const state = {
 }
 
 const GetPokemons = {
+  namespaced: true,
   state,
   mutations: {
     setList(state, newList: Pokemon[] | null) {
@@ -23,11 +24,9 @@ const GetPokemons = {
     }
   },
   getters: {
-    pokemonListStatusCall: (state) => state.status,
-    pokemonList: (state) => state.list,
-    pokemonsNameFilter: (state) => state.filters.name,
-    pokemonsCategoryFilter: (state) => state.filters.category,
-    pokemonFilteredList: (state) =>
+    statusCall: (state) => state.status,
+    categoryFilter: (state) => state.filters.category,
+    filteredList: (state) =>
       state.list?.filter((pok) => {
         const nameCondition =
           state.filters.name === '' || pok.name.toLowerCase() === state.filters.name.toLowerCase()

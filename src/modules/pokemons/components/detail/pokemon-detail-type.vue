@@ -9,7 +9,7 @@ import { useI18n } from 'vue-i18n'
 const store = useStore()
 const { t } = useI18n()
 
-const pokemon = computed(() => store.getters.pokemonDetail as Pokemon)
+const pokemon = computed(() => store.getters['GetPokemonDetail/pokemonDetail'] as Pokemon)
 const pokemonTypes = computed(() => pokemon.value.types.map(({ type }) => type.name))
 
 const selectedType = ref(pokemonTypes.value[0])

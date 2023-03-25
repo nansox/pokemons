@@ -9,6 +9,7 @@ const state = {
 }
 
 const GetPokemonDetail = {
+  namespaced: true,
   state,
   mutations: {
     setPokemon(state, newPokemon: Pokemon | null) {
@@ -19,7 +20,7 @@ const GetPokemonDetail = {
     }
   },
   getters: {
-    pokemonDetailStatusCall: (state) => state.status,
+    statusCall: (state) => state.status,
     pokemonDetail: (state) => state.detail
   },
   actions: {
