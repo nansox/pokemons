@@ -44,6 +44,7 @@ onBeforeRouteLeave(() => store.dispatch('GetPokemonDetail/clean'))
   background-color: var(--light-grey);
   padding-top: 3rem;
   box-sizing: border-box;
+  overflow: auto;
 }
 .pokemon-detail-view-head {
   display: flex;
@@ -62,5 +63,6 @@ h3::first-letter {
   padding: 0 1rem;
   display: flex;
   gap: 1.5rem;
+  flex-wrap: wrap;
 }
 </style>

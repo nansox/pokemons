@@ -1,4 +1,9 @@
-import type { Pokemon, PokemonList, PokemonType } from '@/modules/pokemons/api/pokemon-types'
+import type {
+  Pokemon,
+  PokemonAbility,
+  PokemonList,
+  PokemonType
+} from '@/modules/pokemons/api/pokemon-types'
 
 export const getPokemonsList = async () =>
   fetch('https://pokeapi.co/api/v2/pokemon', {
@@ -34,4 +39,16 @@ export const getPokemonType = async (name: string) =>
     response.ok
       ? (response.json() as Promise<PokemonType>)
       : Promise.reject('Error on get pokemon type')
+  )
+
+export const getPokemonAbility = async (name: string) =>
+  fetch(`https://pokeapi.co/api/v2/ability/${name}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then((response) =>
+    response.ok
+      ? (response.json() as Promise<PokemonAbility>)
+      : Promise.reject('Error on get pokemon ability')
   )

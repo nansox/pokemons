@@ -11,6 +11,7 @@ body,
   display: flex;
   --green: #86c060;
   --light-green: #b8dd51;
+  --transparent-green: #86c0608a;
   --dark-green: #8aa579;
   --purple: #a231ec;
   --light-purple: #b683d8;

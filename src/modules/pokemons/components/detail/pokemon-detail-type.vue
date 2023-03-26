@@ -39,6 +39,8 @@ const selectedType = ref(pokemonTypes.value[0])
   border-top: 4px solid var(--blue);
   border-radius: 0.2rem;
   width: 0;
+  min-width: 15rem;
+  height: fit-content;
 }
 h4 {
   font-size: 1.2rem;
@@ -51,6 +53,7 @@ h4 {
   justify-content: center;
   margin-bottom: 1.3rem;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 .types-buttons button {
   padding: 0.5rem 2rem;

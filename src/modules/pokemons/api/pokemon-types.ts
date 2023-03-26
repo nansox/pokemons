@@ -16,7 +16,7 @@ export type Pokemon = {
   is_default: boolean
   order: number
   weight: number
-  abilities: PokemonAbility[]
+  abilities: LitPokemonAbility[]
   forms: NamedAPIResource[]
   game_indices: VersionGameIndex[]
   held_items: PokemonHeldItem[]
@@ -29,7 +29,7 @@ export type Pokemon = {
   types: LitPokemonType[]
 }
 
-export type PokemonAbility = {
+export type LitPokemonAbility = {
   is_hidden: boolean
   slot: number
   ability: NamedAPIResource
@@ -124,4 +124,13 @@ export interface PokemonGameIndex {
 export interface PokemonName {
   language: NamedAPIResource
   name: string
+}
+
+export interface PokemonAbility {
+  id: number
+  name: string
+  is_main_series: boolean
+  generation: NamedAPIResource
+  names: { name: string; language: NamedAPIResource }[]
+  effect_entries: { effect: string; short_effect: string; language: NamedAPIResource }[]
 }
