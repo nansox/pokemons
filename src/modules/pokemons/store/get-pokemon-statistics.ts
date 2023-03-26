@@ -1,6 +1,6 @@
 import { CallStatus } from '@/common/store/types'
 import type { Module } from 'vuex'
-import type { PokemonType } from '@/modules/pokemons/api/pokemon-types'
+import type { NamedAPIResource, PokemonType } from '@/modules/pokemons/api/pokemon-types'
 import { getPokemonType } from '@/modules/pokemons/api/pokemons'
 
 const state = {
@@ -23,31 +23,13 @@ const GetPokemonStatistics = {
     statusCall: (state) => state.status,
     vulnerableStatistics: (state) => {
       if (!state.type) return []
-      const { double_damage_from, half_damage_from } = state.type.damage_relations
-      return [
-        ...double_damage_from.map(({ name }) => ({
-          name,
-          damage: 'double'
-        })),
-        ...half_damage_from.map(({ name }) => ({
-          name,
-          damage: 'half'
-        }))
-      ]
+      const { double_damage_from: double, half_damage_from: half } = state.type.damage_relations
+      return [...damageMapper(double, 'double'), ...damageMapper(half, 'half')]
     },
     resistanceStatistics: (state) => {
       if (!state.type) return []
-      const { double_damage_to, half_damage_to } = state.type!.damage_relations
-      return [
-        ...double_damage_to.map(({ name }) => ({
-          name,
-          damage: 'double'
-        })),
-        ...half_damage_to.map(({ name }) => ({
-          name,
-          damage: 'half'
-        }))
-      ]
+      const { double_damage_to: double, half_damage_to: half } = state.type!.damage_relations
+      return [...damageMapper(double, 'double'), ...damageMapper(half, 'half')]
     }
   },
   actions: {
@@ -71,3 +53,9 @@ const GetPokemonStatistics = {
 } satisfies Module<typeof state, unknown>
 
 export default GetPokemonStatistics
+
+const damageMapper = (list: NamedAPIResource[], type: string) =>
+  list.map(({ name }) => ({
+    name,
+    damage: type
+  }))
