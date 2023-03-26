@@ -1,0 +1,42 @@
+:root,
+body,
+#app {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+:root {
+  font-family: sans-serif;
+  display: flex;
+  --green: #86c060;
+  --light-green: #b8dd51;
+  --transparent-green: #86c0608a;
+  --dark-green: #8aa579;
+  --purple: #a231ec;
+  --light-purple: #b683d8;
+  --extra-light-blue: #7aaedf;
+  --light-blue: #3a8bd6;
+  --blue: #3d82c2;
+  --orange: #e77224;
+  --grey: #979797;
+  --light-grey: #f5f3f3;
+  --grey-300: #cecdcd;
+  --light-red: #e65252;
+  --red: #b40f0f;
+  --light-pink: #fab8e6;
+  --pink: #ff5bce;
+  --yellow: #f8d847;
+  --light-orange: #ffd3a1;
+  --light-yellow: #f1f395;
+  --light-black: #494949;
+  --dark-blue: #2c468b;
+}
+
+input,
+select {
+  height: 35px;
+  border: 2px solid var(--grey);
+  outline: none;
+  border-radius: 0.2rem;
+}
