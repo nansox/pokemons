@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Pokemon } from '@/modules/pokemons/api/pokemon-types'
-import PokemonListTypeButton from '@/modules/pokemons/components/list/pokemon-type-button.vue'
+import PokemonListTypeButton from '@/modules/pokemons/components/pokemon-type-button.vue'
 
 const props = defineProps<{ pokemon: Pokemon; index: number }>()
 </script>

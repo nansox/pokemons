@@ -14,6 +14,7 @@ const pokemons = computed(() => store.getters['GetPokemons/filteredList'])
 const statusCall = computed(() => store.getters['GetPokemons/statusCall'])
 const loading = computed(() => statusCall.value === CallStatus.LOADING)
 const loaded = computed(() => statusCall.value === CallStatus.DONE)
+const error = computed(() => statusCall.value === CallStatus.FAILED)
 
 onBeforeRouteLeave(() => store.dispatch('GetPokemons/clean'))
 </script>
@@ -23,7 +24,7 @@ onBeforeRouteLeave(() => store.dispatch('GetPokemons/clean'))
     <PokemonListFilters />
     <PkSpinner v-if="loading"></PkSpinner>
     <PokemonList v-else-if="loaded" :pokemons="pokemons"></PokemonList>
-    <p v-else>Service Error</p>
+    <p v-else-if="error">Service Error</p>
   </div>
 </template>
 

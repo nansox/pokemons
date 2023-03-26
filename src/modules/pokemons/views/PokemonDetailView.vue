@@ -4,9 +4,9 @@ import { useStore } from 'vuex'
 import { onBeforeRouteLeave, useRoute } from 'vue-router'
 import { CallStatus } from '@/common/store/types'
 import PkSpinner from '@/common/components/pk-spinner.vue'
-import PokemonDetailType from '@/modules/pokemons/components/detail/pokemon-detail-type.vue'
-import type { Pokemon } from '@/modules/pokemons/api/pokemon-types'
-import PokemonBestMoves from '@/modules/pokemons/components/detail/pokemon-best-moves.vue'
+import PokemonDetailType from '@/modules/pokemons/components/detail/type-card/pokemon-detail-type.vue'
+import PokemonBestMoves from '@/modules/pokemons/components/detail/moves-card/pokemon-best-moves.vue'
+import PokemonDetailHead from '@/modules/pokemons/components/detail/pokemon-detail-head.vue'
 
 const store = useStore()
 const route = useRoute()
@@ -14,10 +14,10 @@ const route = useRoute()
 onBeforeMount(async () => {
   await store.dispatch('GetPokemonDetail/fetchPokemonDetail', route.params.name)
 })
-const pokemon = computed(() => store.getters['GetPokemonDetail/pokemonDetail'] as Pokemon)
 const detailCallStatus = computed(() => store.getters['GetPokemonDetail/statusCall'])
 const loading = computed(() => detailCallStatus.value === CallStatus.LOADING)
 const loaded = computed(() => detailCallStatus.value === CallStatus.DONE)
+const error = computed(() => detailCallStatus.value === CallStatus.FAILED)
 
 onBeforeRouteLeave(() => store.dispatch('GetPokemonDetail/clean'))
 </script>
@@ -25,16 +25,13 @@ onBeforeRouteLeave(() => store.dispatch('GetPokemonDetail/clean'))
 <template>
   <PkSpinner v-if="loading"></PkSpinner>
   <section v-else-if="loaded" class="pokemon-detail-view">
-    <div class="pokemon-detail-view-head">
-      <img :src="pokemon.sprites.front_default" />
-      <h3>{{ pokemon.name }}</h3>
-    </div>
+    <PokemonDetailHead></PokemonDetailHead>
     <div class="pokemon-detail-view-body">
       <PokemonDetailType></PokemonDetailType>
       <PokemonBestMoves></PokemonBestMoves>
     </div>
   </section>
-  <p v-else>Service Error</p>
+  <p v-else-if="error">Service Error</p>
 </template>
 
 <style scoped>
@@ -42,22 +39,9 @@ onBeforeRouteLeave(() => store.dispatch('GetPokemonDetail/clean'))
   position: relative;
   height: 100%;
   background-color: var(--light-grey);
-  padding-top: 3rem;
   box-sizing: border-box;
   overflow: auto;
-}
-.pokemon-detail-view-head {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-h3 {
-  font-size: 1.5rem;
-  font-weight: normal;
-}
-h3::first-letter {
-  text-transform: capitalize;
+  padding-bottom: 1rem;
 }
 .pokemon-detail-view-body {
   padding: 0 1rem;

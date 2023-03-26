@@ -3,7 +3,7 @@ import { useStore } from 'vuex'
 import { computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { onBeforeRouteLeave } from 'vue-router'
-import PokemonListTypeButton from '@/modules/pokemons/components/list/pokemon-type-button.vue'
+import PokemonListTypeButton from '@/modules/pokemons/components/pokemon-type-button.vue'
 import PkSpinner from '@/common/components/pk-spinner.vue'
 import { CallStatus } from '@/common/store/types'
 
@@ -15,6 +15,7 @@ const loading = computed(
   () => store.getters['GetPokemonStatistics/statusCall'] === CallStatus.LOADING
 )
 const loaded = computed(() => store.getters['GetPokemonStatistics/statusCall'] === CallStatus.DONE)
+const error = computed(() => store.getters['GetPokemonStatistics/statusCall'] === CallStatus.FAILED)
 
 const vulnerabilities = computed(() => store.getters['GetPokemonStatistics/vulnerableStatistics'])
 const resistances = computed(() => store.getters['GetPokemonStatistics/resistanceStatistics'])
@@ -57,7 +58,7 @@ onBeforeRouteLeave(() => store.dispatch('GetPokemonStatistics/clean'))
         </ul>
       </div>
     </div>
-    <p v-else>Service Error</p>
+    <p v-else-if="error">Service Error</p>
   </div>
 </template>
 

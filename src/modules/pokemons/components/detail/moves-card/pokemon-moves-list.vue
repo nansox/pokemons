@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PokemonMove } from '@/modules/pokemons/api/pokemon-types'
 import { computed } from 'vue'
-import SheetIcon from '@/common/components/icons/SheetIcon.vue'
+import IconSheet from '@/common/components/icons/IconSheet.vue'
 
 const props = defineProps<{ movesList: PokemonMove[] }>()
 
@@ -13,7 +13,7 @@ const formattedMoves = computed(() =>
 <template>
   <div class="pokemon-moves-list">
     <div v-for="move in formattedMoves" :key="move">
-      <SheetIcon></SheetIcon>
+      <IconSheet></IconSheet>
       <span>
         {{ move }}
       </span>
